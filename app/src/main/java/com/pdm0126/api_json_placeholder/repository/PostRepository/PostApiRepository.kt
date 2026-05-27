@@ -8,7 +8,7 @@ class PostApiRepository : PostRepository {
 
     override suspend fun getPosts(): List<Post> {
         try {
-            val response: GetMoviesResponseDto = KtorClient.client.get("movie/popular") {
+            val response: GetPostResponseDto = KtorClient.client.get("movie/popular") {
                 parameter("language", "es-ES")
                 parameter("page", 1)
             }.body()
