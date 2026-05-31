@@ -5,11 +5,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pdm0126.api_json_placeholder.data.api.KtorClient
 import com.pdm0126.api_json_placeholder.data.model.Post
+import com.pdm0126.api_json_placeholder.repository.PostRepository.PostApiRepository
 import com.pdm0126.api_json_placeholder.repository.PostRepository.PostRepository
 import kotlinx.coroutines.launch
 
-class Screen1ViewModel(private val repository: PostRepository) : ViewModel() {
+class Screen1ViewModel: ViewModel() {
+
+    private val repository: PostRepository = PostApiRepository(KtorClient.client)
+
     var posts by mutableStateOf<List<Post>>(emptyList())
     var isLoading by mutableStateOf(false)
 
