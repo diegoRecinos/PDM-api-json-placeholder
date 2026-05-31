@@ -41,7 +41,7 @@ fun App(modifier: Modifier = Modifier){
                 }
 
                 entry<Routes.Screen1>{
-                    Screen1(aonBack = { backStack.removeLastOrNull() })
+                    Screen1(onBack = { backStack.removeLastOrNull() })
                 }
 
                 entry<Routes.Screen2>{
