@@ -1,8 +1,9 @@
 package com.pdm0126.api_json_placeholder.data.api.posts
 
 import com.pdm0126.api_json_placeholder.data.model.Post
+import kotlinx.serialization.Serializable
 
-
+@Serializable
 data class PostDTO(
     val userId: Int,
     val id: Int? = null,

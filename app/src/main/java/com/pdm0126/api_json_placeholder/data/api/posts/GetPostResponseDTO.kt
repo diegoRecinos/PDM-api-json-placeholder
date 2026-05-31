@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class getPostResponseDTO(
+data class GetPostResponseDTO(
     val page: Int? = null,
     val results: List<PostDTO>,
 )
