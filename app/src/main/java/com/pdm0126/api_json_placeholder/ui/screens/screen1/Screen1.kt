@@ -29,15 +29,24 @@ fun Screen1(
             Button(onClick = { viewModel.createPost() }) { Text("POST (Crear)") }
         }
 
+        //load state
         if (viewModel.isLoading) {
             CircularProgressIndicator()
         }
 
-        LazyColumn {
-            items(viewModel.posts) { post ->
-                Text(text = post.title, style = MaterialTheme.typography.titleMedium)
-                Text(text = post.body)
-                HorizontalDivider()
+        //error state
+        else if (viewModel.errorMessage != null) {
+            Text(text = viewModel.errorMessage!!)
+        }
+
+        //success state
+        else {
+            LazyColumn {
+                items(viewModel.posts) { post ->
+                    Text(text = post.title, style = MaterialTheme.typography.titleMedium)
+                    Text(text = post.body)
+                    HorizontalDivider()
+                }
             }
         }
     }
