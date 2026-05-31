@@ -3,6 +3,7 @@ package com.pdm0126.api_json_placeholder.repository.PostRepository
 import android.util.Log
 import android.util.Log.e
 import com.pdm0126.api_json_placeholder.data.api.KtorClient
+import com.pdm0126.api_json_placeholder.data.api.posts.CreatePostRequestDto
 import com.pdm0126.api_json_placeholder.data.api.posts.PostDTO
 import com.pdm0126.api_json_placeholder.data.api.posts.toDTO
 import com.pdm0126.api_json_placeholder.data.api.posts.toModel
@@ -36,11 +37,21 @@ class PostApiRepository(private val client: HttpClient): PostRepository {
 
     }
 
-    override suspend fun createPost(post: Post): Result<Post>{
+    override suspend fun createPost(title: String, body: String): Result<Post>{
         return try {
+
+            //crear el DTOP de peticion API espera recibir
+
+            val request = CreatePostRequestDto(
+                title = title,
+                body = body,
+                userId = 1
+            )
+
+            //Hacer el POST enviando el 'request'
             val response: PostDTO = client.post("posts"){
                 contentType(ContentType.Application.Json)
-                setBody(post.toDTO())
+                setBody(request) //pasamos el DTO request
             }.body()
 
             Result.success(response.toModel())

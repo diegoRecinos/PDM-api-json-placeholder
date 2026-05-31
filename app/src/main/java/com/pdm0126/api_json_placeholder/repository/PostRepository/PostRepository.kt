@@ -5,6 +5,6 @@ import com.pdm0126.api_json_placeholder.data.model.Post
 interface PostRepository {
 
     suspend fun getPosts(): Result<List<Post>>
-    suspend fun createPost(post: Post): Result<Post>
+    suspend fun createPost(title: String, body: String): Result<Post>
 
 }

@@ -47,12 +47,8 @@ class Screen1ViewModel: ViewModel() {
             errorMessage = null
 
             repository.createPost(
-                Post(
-                    userId = 1,
-                    id = 0,
-                    title = "title Post",
-                    body = " POST body created with POST "
-                )
+                title = "title Post",
+                body = " POST body via Create Post() "
             )
                 .onSuccess { data ->
                     posts = listOf(data) + posts
