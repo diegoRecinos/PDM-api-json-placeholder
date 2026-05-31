@@ -13,11 +13,12 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
+import com.pdm0126.api_json_placeholder.BuildConfig
 
 object KtorClient{
 
-    private const val BASE_URL = "https://jsonplaceholder.typicode.com"
-
+    //private const val BASE_URL = "https://jsonplaceholder.typicode.com"
+    private val BASE_URL = BuildConfig.BASE_URL
     val client = HttpClient(OkHttp){
         //configuracion de JSON
         install(ContentNegotiation){

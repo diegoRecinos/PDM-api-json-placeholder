@@ -1,3 +1,11 @@
+import java.util.Properties
+
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.inputStream())
+}
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -21,6 +29,14 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // --- CONFIGURACIÓN DE BASE_URL ---
+        // Leemos de local.properties. Si no existe, usamos un valor por defecto.
+        val baseUrl = localProperties.getProperty("BASE_URL") ?: "https://api.default.com/"
+        
+        // Creamos el campo en el archivo BuildConfig que se genera automáticamente
+        // Usamos comillas escapadas para que en Kotlin se reconozca como un String
+        buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
     }
 
     buildTypes {
@@ -38,7 +54,10 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
+
+
 }
 
 dependencies {
@@ -81,5 +100,4 @@ dependencies {
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.client.logging)
-
 }
