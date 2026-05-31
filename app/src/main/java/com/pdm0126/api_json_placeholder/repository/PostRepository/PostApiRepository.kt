@@ -18,7 +18,7 @@ class PostApiRepository(private val client: HttpClient): PostRepository {
 
     override suspend fun getPosts(): List<Post> {
         val response: List<PostDTO> = client.get(BASE_URL).body()
-            return response.map{it.toModel() }
+        return response.map { it.toModel() }
     }
 
     override suspend fun createPost(post: Post): Post{
