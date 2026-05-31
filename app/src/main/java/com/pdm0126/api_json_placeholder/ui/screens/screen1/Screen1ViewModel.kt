@@ -1,5 +1,6 @@
 package com.pdm0126.api_json_placeholder.ui.screens.screen1
 
+import android.R.attr.data
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -18,17 +19,23 @@ class Screen1ViewModel: ViewModel() {
     var posts by mutableStateOf<List<Post>>(emptyList())
     var isLoading by mutableStateOf(false)
 
+    //estado para guardar mensaje de error
+    var errorMessage by mutableStateOf<String?>(null)
+
     // Para el GET
     fun fetchPosts() {
         viewModelScope.launch {
             isLoading = true
-            try {
-                posts = repository.getPosts()
-            } catch (e: Exception) {
-                e.printStackTrace()
-            } finally {
-                isLoading = false
-            }
+            errorMessage = null
+
+            repository.getPosts()
+                .onSuccess { data ->
+                    posts = data
+                }
+                .onFailure { e ->
+                    errorMessage = e.message
+                }
+            isLoading = false
         }
     }
 

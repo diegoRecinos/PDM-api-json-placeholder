@@ -49,7 +49,7 @@ class PostApiRepository(private val client: HttpClient): PostRepository {
             Log.e("PostApiRepository", "Error creating post: ${e.message}", e)
             Result.failure(e)
         }
-        }
+
     }
 
 }
