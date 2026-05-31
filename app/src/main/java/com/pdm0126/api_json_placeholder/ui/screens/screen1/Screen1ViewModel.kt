@@ -42,19 +42,40 @@ class Screen1ViewModel: ViewModel() {
     // Para el POST
     fun createPost() {
         viewModelScope.launch {
-            try {
-                val newPost = Post(
+
+            isLoading = true
+            errorMessage = null
+
+            repository.createPost(
+                Post(
                     userId = 1,
                     id = 0,
                     title = "title Post",
                     body = " POST body created with POST "
                 )
-                val result = repository.createPost(newPost)
-                // Agregamos el resultado al inicio de la lista para verlo en pantalla
-                posts = listOf(result) + posts
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            )
+                .onSuccess { data ->
+                    posts = listOf(data) + posts
+                }
+                .onFailure { e ->
+                    errorMessage = e.message
+                }
+            isLoading = false
+
+
+//            try {
+//                val newPost = Post(
+//                    userId = 1,
+//                    id = 0,
+//                    title = "title Post",
+//                    body = " POST body created with POST "
+//                )
+//                val result = repository.createPost(newPost)
+//                // Agregamos el resultado al inicio de la lista para verlo en pantalla
+//                posts = listOf(result) + posts
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
         }
     }
 }
